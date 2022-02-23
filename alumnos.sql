@@ -3,21 +3,21 @@ CREATE TABLE alumnos (
 	nombre VARCHAR(32) NOT NULL,
 	apellidos VARCHAR(64) NOT NULL,
 	fecha_nac DATE NOT NULL,
-	UNIQUE KEY id_alumno_uq (id_alumno)
+	PRIMARY KEY id_alumno_uq (id_alumno)
 );
 
 CREATE TABLE profesores (
 	id_profesor INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(32) NOT NULL,
 	apellidos VARCHAR(64) NOT NULL,
-	UNIQUE KEY id_profesor_uq (id_profesor)
+	PRIMARY KEY id_profesor_uq (id_profesor)
 );
 
 CREATE TABLE asignaturas (
 	id_asignatura INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(64) NOT NULL,
 	profesor INT NOT NULL,
-	UNIQUE KEY id_asignatura_uq(id_asignatura),
+	PRIMARY KEY id_asignatura_uq(id_asignatura),
 	FOREIGN KEY profesor_asignatura(profesor) REFERENCES profesores(id_profesor)
 );
 
