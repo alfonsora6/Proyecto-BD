@@ -1,7 +1,7 @@
 CREATE TABLE alumnos (
 	id_alumno INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(32) NOT NULL,
-	apellidos VARCHAR(64) NOT NULL,
+	apellido VARCHAR(64) NOT NULL,
 	fecha_nac DATE NOT NULL,
 	PRIMARY KEY id_alumno_uq (id_alumno)
 );
@@ -9,7 +9,7 @@ CREATE TABLE alumnos (
 CREATE TABLE profesores (
 	id_profesor INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(32) NOT NULL,
-	apellidos VARCHAR(64) NOT NULL,
+	apellido VARCHAR(64) NOT NULL,
 	PRIMARY KEY id_profesor_uq (id_profesor)
 );
 
@@ -25,7 +25,7 @@ CREATE TABLE matriculas (
 	alumno INT NOT NULL,
 	asignatura INT NOT NULL,
 	fecha YEAR NOT NULL,
-	nota INT,
+	nota DECIMAL(3,2),
 	PRIMARY KEY (alumno, asignatura, fecha),
 	FOREIGN KEY alumno_matriculado(alumno) REFERENCES alumnos(id_alumno),
 	FOREIGN KEY asignatura_matriculada(asignatura) REFERENCES asignaturas(id_asignatura)
@@ -50,12 +50,12 @@ INSERT INTO asignaturas VALUES
     (9,'Implantación de Sistemas Operativos',3);
 
 INSERT INTO matriculas VALUES
-	(1,6,YEAR('2021-06-15'),6),
-	(1,8,YEAR('2022-11-12'),9),
-	(2,6,YEAR('2020-02-03'),10),
-	(2,7,YEAR('2020-09-23'),7),
-	(2,8,YEAR('2020-02-24'),6),
-	(3,6,YEAR('2021-07-15'),5),
-	(4,9,YEAR('2021-10-23'),4),
-	(4,6,YEAR('2021-10-23'),3),
-	(5,9,YEAR('2022-10-13'),4);
+	(1,6,YEAR('2021-06-15'),6.23),
+	(1,8,YEAR('2022-11-12'),9.57),
+	(2,6,YEAR('2020-02-03'),9.5),
+	(2,7,YEAR('2020-09-23'),7.5),
+	(2,8,YEAR('2020-02-24'),6.12),
+	(3,6,YEAR('2021-07-15'),5.75),
+	(4,9,YEAR('2021-10-23'),4.25),
+	(4,6,YEAR('2021-10-23'),3.70),
+	(5,9,YEAR('2022-10-13'),4.8);
