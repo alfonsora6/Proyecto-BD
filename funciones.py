@@ -35,7 +35,7 @@ def MostrarMenu():
 
 #Ejercicio 1
 def Listar_alumnos_y_contar_asignaturas(db):
-    sql="SELECT nombre,count(*) as Nº_Asignaturas FROM alumnos,matriculas WHERE id_alumno=alumno GROUP BY nombre;"
+    sql="SELECT nombre,count(*) as Nº_Asignaturas FROM alumnos,matriculas WHERE id_alumno=alumno GROUP BY nombre"
     cursor=db.cursor(MySQLdb.cursors.DictCursor)
     try:
         cursor.execute(sql)
@@ -49,9 +49,13 @@ def Listar_alumnos_y_contar_asignaturas(db):
 def agregar_valor_entero():
     try:
         valor=int(input("Introduce un valor: "))
-        while valor<1 or valor>10:
-            print("El valor debe de estar comprendido entre 1 y 10.")
-            valor=int(input("Introduce un valor: "))
+        while valor<1 or valor>=10:
+            if valor==10:
+                print("La nota media no puede ser mayor que 10.")
+                valor=int(input("Introduce un valor: "))
+            else:
+                print("El valor debe de estar comprendido entre 1 y 10.")
+                valor=int(input("Introduce un valor: "))
         return valor    
     except:
         print("El valor indicado debe de ser un número.")
@@ -67,10 +71,36 @@ def cont_nota_media_superior(db,valor):
         print("Alumnos con nota media mayor que %i: "%valor)
         for registro in registros:
             if registro.get("media")>0:
-                print(registro.get("nombre"))
+                print("-",registro.get("nombre"))
     except:
         print("Error en la consulta.")
 
+#Ejercicio 3
+def listar_alumnos(db):  #Esta función muestra el nombre y apellido de todos los alumnos y además nos lo devolverá en una tupla de diccionarios.
+    sql="SELECT nombre,apellido FROM alumnos"
+    cursor=db.cursor(MySQLdb.cursors.DictCursor)
+    try:
+        cursor.execute(sql)
+        registros=cursor.fetchall()
+        print("\nListado de alumnos:\n")
+        for registro in registros:
+            print("-",registro.get("nombre"),registro.get("apellido"))
+        return registros
+    except:
+        print("Error en la consulta.")
+
+def mostrar_profesores_de_alumno(db,nombre,apellido): #Esta función nos muestra los profesores de un determinado alumno, y además nos lo devuelve en una tupla de diccionarios.
+    sql="SELECT nombre,apellido FROM profesores WHERE id_profesor IN (SELECT profesor FROM asignaturas WHERE id_asignatura IN (SELECT asignatura FROM matriculas WHERE alumno IN(SELECT id_alumno FROM alumnos WHERE nombre='%s' and apellido='%s')))"%(nombre,apellido)
+    cursor=db.cursor(MySQLdb.cursors.DictCursor)
+    try:
+        cursor.execute(sql)
+        registros=cursor.fetchall()
+        #print("Profesores que dan clase a %s %s:"%(nombre,apellido))
+        #for registro in registros:
+        #    print("-",registro.get("nombre"))
+        return registros
+    except:
+        print("Error en la consulta.")
 
 
 
