@@ -1,3 +1,15 @@
+--Primero accedemos con -> mysql -u root -p
+
+--Creación de BD y usuario (Definiendole los privilegios)
+
+CREATE DATABASE alumnos;
+CREATE USER 'alfonso'@'%' IDENTIFIED BY 'proyectobd';
+GRANT ALL PRIVILEGES ON alumnos.* to 'alfonso'@'%';
+FLUSH PRIVILEGES;
+USE alumnos; 
+
+--Creación de tablas
+
 CREATE TABLE alumnos (
 	id_alumno INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(32) NOT NULL,
@@ -30,6 +42,8 @@ CREATE TABLE matriculas (
 	FOREIGN KEY alumno_matriculado(alumno) REFERENCES alumnos(id_alumno),
 	FOREIGN KEY asignatura_matriculada(asignatura) REFERENCES asignaturas(id_asignatura)
 );
+
+--Insercción de datos
 
 INSERT INTO alumnos VALUES
     (1,'Elena','Pérez','2000-02-18'),
