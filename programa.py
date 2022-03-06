@@ -69,7 +69,8 @@ while opcion!=7:
                         eliminar_asignatura(db,id_alum[0],id_asig[0])
         else:
             print("La asignatura seleccionada no existe.")
-        
+
+    #Ejercicio 6:    
     elif opcion==6:
         matricula={}
         mostrar_asignaturas(db)

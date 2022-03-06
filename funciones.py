@@ -191,7 +191,8 @@ def eliminar_asignatura(db,alumno,asignatura):
         except:
             print("Error al eliminar la asignatura.")
             db.rollback()
-        
+
+#Ejercicio 6:        
 def actualizar_notayfecha_de_asignatura(db,matricula):
     cursor=db.cursor()
     sql="UPDATE matriculas SET fecha=YEAR(%s) WHERE alumno=%i and asignatura=%i"%(matricula.get("fecha"),matricula.get("alumno"),matricula.get("asignatura"))
