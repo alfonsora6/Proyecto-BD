@@ -33,9 +33,9 @@ def MostrarMenu():
         except:
             print("Error, la opción debe de ser un número.\n")
 
-
+#Ejercicio 1
 def Listar_alumnos_y_contar_asignaturas(db):
-    sql="SELECT nombre,count(*) as Nº_Asignaturas from alumnos,matriculas WHERE id_alumno=alumno GROUP BY nombre;"
+    sql="SELECT nombre,count(*) as Nº_Asignaturas FROM alumnos,matriculas WHERE id_alumno=alumno GROUP BY nombre;"
     cursor=db.cursor(MySQLdb.cursors.DictCursor)
     try:
         cursor.execute(sql)
@@ -44,4 +44,35 @@ def Listar_alumnos_y_contar_asignaturas(db):
             print("Alumno:",registro.get("nombre"),"| Nº de asignaturas:",registro.get("Nº_Asignaturas"))
     except:
         print("Se ha producido un error en la consulta.")
+
+#Ejercicio 2
+def agregar_valor_entero():
+    try:
+        valor=int(input("Introduce un valor: "))
+        while valor<1 or valor>10:
+            print("El valor debe de estar comprendido entre 1 y 10.")
+            valor=int(input("Introduce un valor: "))
+        return valor    
+    except:
+        print("El valor indicado debe de ser un número.")
+        valor=False
+        return valor
+
+def cont_nota_media_superior(db,valor):
+    sql="SELECT a.nombre, AVG(m.nota) > %i as media FROM alumnos a,matriculas m WHERE id_alumno=alumno GROUP BY nombre" %valor
+    cursor=db.cursor(MySQLdb.cursors.DictCursor)
+    try:
+        cursor.execute(sql)
+        registros=cursor.fetchall()
+        print("Alumnos con nota media mayor que %i: "%valor)
+        for registro in registros:
+            if registro.get("media")>0:
+                print(registro.get("nombre"))
+    except:
+        print("Error en la consulta.")
+
+
+
+
+
 
