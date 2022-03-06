@@ -198,6 +198,7 @@ def actualizar_notayfecha_de_asignatura(db,matricula):
     sql2="UPDATE matriculas SET nota=%.2f WHERE alumno=%i and asignatura=%i"%(matricula.get("nota"),matricula.get("alumno"),matricula.get("asignatura"))
     try:
             cursor.execute(sql)
+            cursor.execute(sql2)
             db.commit()
             print("La fecha y nota se han actualizado correctamente.")
     except:
