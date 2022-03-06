@@ -70,7 +70,32 @@ while opcion!=7:
         else:
             print("La asignatura seleccionada no existe.")
         
-        
+    elif opcion==6:
+        matricula={}
+        mostrar_asignaturas(db)
+        asignatura=input("\nIntroduce el nombre de la asignatura: ")
+        id_asig=id_asignatura(db,asignatura)
+        matricula["asignatura"]=id_asig
+        if id_asig != None:
+            print("\nLista actual de alumnos:")
+            alumnos=listar_alumnos_por_asignatura(db,id_asig[0])
+            if alumnos != False:
+                if len(alumnos)==0:
+                    print("No hay alumnos en la asignatura de %s"%asignatura)
+                else:
+                    for alum in alumnos:
+                        print("-",alum[0])
+                    alumno=input("Introduce el nombre del alumno: ")
+                    id_alum=id_alumno(db,alumno)
+                    matricula["alumno"]=id_alum
+                    if id_alum != False:
+                        nota=float(input("Introduce la nueva nota del alumno: "))
+                        matricula["nota"]=nota
+                        año=input("Introduce el año de la nueva fecha(YYYY): ")
+                        mes=input("Introduce el mes de la nueva fecha(MM): ")
+                        dia=input("Introduce el día de la nueva fecha(DD): ")
+                        matricula["fecha"]="%s-%s-%s"%(año,mes,dia)
+                        actualizar_notayfecha_de_asignatura(db,matricula)
     opcion=MostrarMenu()
 
 print("Has salido del programa.")
