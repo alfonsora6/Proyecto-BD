@@ -31,6 +31,46 @@ while opcion!=7:
             print("\nProfesores que dan clase a %s %s:\n"%(nombre,apellido))
             for profesor in profesores:
                 print("-",profesor.get("nombre"),profesor.get("apellido"))
+    
+    #Ejercicio 4:
+    elif opcion==4:
+        id=max_id(db)
+        id_nuevo=int(id[0])+1
+        alumno={}
+        alumno["id_alumno"]=id_nuevo
+        alumno["nombre"]=input("Nombre: ")
+        alumno["apellido"]=input("Apellido: ")
+        #La fecha_nac hay que insertarlo en formato fecha, para mayor claridad, lo he dividido en 3 variables.
+        año=input("Introduce el año de nacimiento(YYYY): ")
+        mes=input("Introduce el mes de nacimiento(MM): ")
+        dia=input("Introduce el día de nacimiento(DD): ")
+        alumno["fecha_nac"]="%s-%s-%s"%(año,mes,dia)
+        insertar_alumno(db,alumno)
+        print("\nLista actual de alumnos:")
+        listaalumnos=listar_alumnos(db)
+
+    #Ejercicio 5:
+    elif opcion==5:
+        mostrar_asignaturas(db)
+        asignatura=input("\nSelecciona la asignatura que desee eliminar: ")
+        id_asig=id_asignatura(db,asignatura)
+        if id_asig != None:
+            print("\nLista actual de alumnos:")
+            alumnos=listar_alumnos_por_asignatura(db,id_asig[0])
+            if alumnos != False:
+                if len(alumnos)==0:
+                    print("No hay alumnos en la asignatura de %s"%asignatura)
+                else:
+                    for alum in alumnos:
+                        print("-",alum[0])
+                    alumno=input("\nSelecciona el alumno: ")
+                    id_alum=id_alumno(db,alumno)
+                    if id_alum != False:
+                        eliminar_asignatura(db,id_alum[0],id_asig[0])
+        else:
+            print("La asignatura seleccionada no existe.")
+        
+        
     opcion=MostrarMenu()
 
 print("Has salido del programa.")

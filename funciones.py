@@ -95,14 +95,101 @@ def mostrar_profesores_de_alumno(db,nombre,apellido): #Esta función nos muestra
     try:
         cursor.execute(sql)
         registros=cursor.fetchall()
-        #print("Profesores que dan clase a %s %s:"%(nombre,apellido))
-        #for registro in registros:
-        #    print("-",registro.get("nombre"))
         return registros
     except:
         print("Error en la consulta.")
 
+#Ejercicio 4:
+def max_id(db):
+    sql="SELECT MAX(id_alumno) from alumnos"
+    cursor=db.cursor()
+    try:
+        cursor.execute(sql)
+        registro=cursor.fetchone()
+        return registro
+    except:
+        print("Se ha producido un error al calcular el mayor identificador.")
 
+def insertar_alumno(db,alumno):
+    cursor=db.cursor()
+    sql="INSERT INTO alumnos values ('%i','%s','%s','%s')" %(alumno.get("id_alumno"),alumno.get("nombre"),alumno.get("apellido"),alumno.get("fecha_nac"))
+    try:
+        cursor.execute(sql)
+        db.commit()
+    except:
+        print("\nError al insertar los datos.")
+        db.rollback()
 
+def listar_alumnos(db):
+    cursor=db.cursor(MySQLdb.cursors.DictCursor)
+    sql="SELECT nombre from alumnos"
+    try:
+        cursor.execute(sql)
+        registros=cursor.fetchall()
+        for registro in registros:
+            print("-",registro.get("nombre"))
+        return registros
+    except:
+        print("Se ha producido un error en la consulta.") 
+
+#Ejercicio 5:
+def mostrar_asignaturas(db):
+    cursor=db.cursor(MySQLdb.cursors.DictCursor)
+    sql="SELECT * FROM asignaturas"
+    try:
+        cursor.execute(sql)
+        asignaturas=cursor.fetchall()
+        print("\nLista de asignaturas:\n")
+        for asignatura in asignaturas:
+            print("-",asignatura.get("nombre"))
+    except:
+        print("Se ha producido un error en la consulta.")
+
+def id_asignatura(db,asignatura):
+    sql="SELECT id_asignatura FROM asignaturas WHERE nombre='%s'"%asignatura
+    cursor=db.cursor()
+    try:
+        cursor.execute(sql)
+        registro=cursor.fetchone()
+        return registro
+    except:
+        print("Se ha producido un error al calcular el identificador de la asignatura.")
+
+def listar_alumnos_por_asignatura(db,asignatura):
+    sql="SELECT nombre FROM alumnos WHERE id_alumno=(SELECT alumno FROM matriculas WHERE asignatura=%i)"%asignatura
+    cursor=db.cursor()
+    try:
+        cursor.execute(sql)
+        registros=cursor.fetchall()
+        return registros
+    except:
+        print("Error, no hay alumnos pertenecientes a esa asignatura.")
+        error=False
+        return error
+
+def id_alumno(db,alumno):
+    sql="SELECT id_alumno FROM alumnos WHERE nombre='%s'"%alumno
+    cursor=db.cursor()
+    try:
+        cursor.execute(sql)
+        registro=cursor.fetchone()
+        return registro
+    except:
+        print("Se ha producido un error al calcular el identificador del alumno.")
+        error=False
+        return error
+def eliminar_asignatura(db,alumno,asignatura):
+    sql="DELETE FROM matriculas WHERE alumno=%i and asignatura=%i"%(alumno,asignatura)
+    cursor=db.cursor()
+    respuesta=input("¿Desea continuar? s/n: ")
+    if respuesta=="s":
+        try:
+            cursor.execute(sql)
+            db.commit()
+            print("La asignatura se ha eliminado correctamente.")
+        except:
+            print("Error al eliminar la asignatura.")
+            db.rollback()
+        
 
 
