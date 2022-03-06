@@ -178,6 +178,7 @@ def id_alumno(db,alumno):
         print("Se ha producido un error al calcular el identificador del alumno.")
         error=False
         return error
+
 def eliminar_asignatura(db,alumno,asignatura):
     sql="DELETE FROM matriculas WHERE alumno=%i and asignatura=%i"%(alumno,asignatura)
     cursor=db.cursor()
