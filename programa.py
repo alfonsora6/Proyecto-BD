@@ -96,9 +96,7 @@ while opcion!=7:
                             nota=float(input("Introduce la nueva nota del alumno: "))
                         matricula["nota"]=nota
                         año=input("Introduce el año de la nueva fecha(YYYY): ")
-                        mes=input("Introduce el mes de la nueva fecha(MM): ")
-                        dia=input("Introduce el día de la nueva fecha(DD): ")
-                        matricula["fecha"]="%s/%s/%s"%(dia,mes,año)
+                        matricula["año"]="%s"%año
                         actualizar_notayfecha_de_asignatura(db,matricula)
     opcion=MostrarMenu()
 
