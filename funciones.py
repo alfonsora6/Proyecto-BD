@@ -172,12 +172,14 @@ def id_alumno(db,alumno):
     cursor=db.cursor()
     try:
         cursor.execute(sql)
-        registro=cursor.fetchone()
-        return registro
+        if cursor.rowcount!=0:
+            registro=cursor.fetchone()
+            return registro
+        else:
+            print("El alumno no existe.")
+            return False
     except:
         print("Se ha producido un error al calcular el identificador del alumno.")
-        error=False
-        return error
 
 def eliminar_asignatura(db,alumno,asignatura):
     sql="DELETE FROM matriculas WHERE alumno=%i and asignatura=%i"%(alumno,asignatura)
