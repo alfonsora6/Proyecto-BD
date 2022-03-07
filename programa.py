@@ -95,6 +95,7 @@ while opcion!=7:
                             nota=validar_nota()
                         while nota<0 or nota>10:
                             print("La nota debe de estar comprendida entre 0 y 10.")
+                            nota=validar_nota()
                             while nota==False:
                                 nota=validar_nota()
                         matricula["nota"]=nota
