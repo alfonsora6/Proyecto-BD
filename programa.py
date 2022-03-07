@@ -86,7 +86,7 @@ while opcion!=7:
                 else:
                     for alum in alumnos:
                         print("-",alum[0])
-                    alumno=input("Introduce el nombre del alumno: ")
+                    alumno=input("\nIntroduce el nombre del alumno: ")
                     id_alum=id_alumno(db,alumno)
                     if id_alum != False:
                         matricula["alumno"]=int(id_alum[0])
@@ -98,7 +98,7 @@ while opcion!=7:
                         año=input("Introduce el año de la nueva fecha(YYYY): ")
                         mes=input("Introduce el mes de la nueva fecha(MM): ")
                         dia=input("Introduce el día de la nueva fecha(DD): ")
-                        matricula["fecha"]="%s-%s-%s"%(año,mes,dia)
+                        matricula["fecha"]="%s/%s/%s"%(dia,mes,año)
                         actualizar_notayfecha_de_asignatura(db,matricula)
     opcion=MostrarMenu()
 
