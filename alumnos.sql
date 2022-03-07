@@ -6,7 +6,9 @@ CREATE DATABASE alumnos;
 CREATE USER 'alfonso'@'%' IDENTIFIED BY 'proyectobd';
 GRANT ALL PRIVILEGES ON alumnos.* to 'alfonso'@'%';
 FLUSH PRIVILEGES;
-USE alumnos; 
+USE alumnos;
+
+--Luego podremos acceder a la base de datos desde el programa, con las credenciales del usuario que hemos definido.
 
 --Creación de tablas
 

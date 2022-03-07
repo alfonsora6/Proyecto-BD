@@ -35,7 +35,7 @@ def MostrarMenu():
 
 #Ejercicio 1
 def Listar_alumnos_y_contar_asignaturas(db):
-    sql="SELECT nombre,count(*) as Nº_Asignaturas FROM alumnos,matriculas WHERE id_alumno=alumno GROUP BY nombre"
+    sql="select nombre,count(asignatura) as Nº_Asignaturas from alumnos a left join matriculas m on a.id_alumno=m.alumno group by nombre"
     cursor=db.cursor(MySQLdb.cursors.DictCursor)
     try:
         cursor.execute(sql)
