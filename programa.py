@@ -100,6 +100,9 @@ while opcion!=7:
                                 nota=validar_nota()
                         matricula["nota"]=nota
                         año=input("Introduce el año de la nueva fecha(YYYY): ")
+                        while len(año)!=4 or año.isnumeric()==False:
+                            print("El año debe de estar en formato YYYY y debe ser un número.")
+                            año=input("Introduce el año de la nueva fecha(YYYY): ")
                         matricula["año"]="%s"%año
                         actualizar_notayfecha_de_asignatura(db,matricula)
     opcion=MostrarMenu()
