@@ -76,7 +76,7 @@ while opcion!=7:
         mostrar_asignaturas(db)
         asignatura=input("\nIntroduce el nombre de la asignatura: ")
         id_asig=id_asignatura(db,asignatura)
-        matricula["asignatura"]=id_asig
+        matricula["asignatura"]=int(id_asig[0])
         if id_asig != None:
             print("\nLista actual de alumnos:")
             alumnos=listar_alumnos_por_asignatura(db,id_asig[0])
@@ -88,9 +88,12 @@ while opcion!=7:
                         print("-",alum[0])
                     alumno=input("Introduce el nombre del alumno: ")
                     id_alum=id_alumno(db,alumno)
-                    matricula["alumno"]=id_alum
                     if id_alum != False:
+                        matricula["alumno"]=int(id_alum[0])
                         nota=float(input("Introduce la nueva nota del alumno: "))
+                        while nota<0 or nota>10:
+                            print("La nota debe de estar comprendida entre 0 y 10.")
+                            nota=float(input("Introduce la nueva nota del alumno: "))
                         matricula["nota"]=nota
                         año=input("Introduce el año de la nueva fecha(YYYY): ")
                         mes=input("Introduce el mes de la nueva fecha(MM): ")
