@@ -67,6 +67,8 @@ while opcion!=7:
                     id_alum=id_alumno(db,alumno)
                     if id_alum != False:
                         eliminar_asignatura(db,id_alum[0],id_asig[0])
+                    else:
+                        print("No existe el alumno.")
         else:
             print("La asignatura seleccionada no existe.")
 

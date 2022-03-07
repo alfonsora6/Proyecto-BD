@@ -156,7 +156,7 @@ def id_asignatura(db,asignatura):
         print("Se ha producido un error al calcular el identificador de la asignatura.")
 
 def listar_alumnos_por_asignatura(db,asignatura):
-    sql="SELECT nombre FROM alumnos WHERE id_alumno=(SELECT alumno FROM matriculas WHERE asignatura=%i)"%asignatura
+    sql="SELECT nombre FROM alumnos WHERE id_alumno IN (SELECT alumno FROM matriculas WHERE asignatura=%i)"%asignatura
     cursor=db.cursor()
     try:
         cursor.execute(sql)
