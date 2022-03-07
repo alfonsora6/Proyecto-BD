@@ -76,8 +76,8 @@ while opcion!=7:
         mostrar_asignaturas(db)
         asignatura=input("\nIntroduce el nombre de la asignatura: ")
         id_asig=id_asignatura(db,asignatura)
-        matricula["asignatura"]=int(id_asig[0])
         if id_asig != None:
+            matricula["asignatura"]=int(id_asig[0])
             print("\nLista actual de alumnos:")
             alumnos=listar_alumnos_por_asignatura(db,id_asig[0])
             if alumnos != False:
@@ -105,6 +105,9 @@ while opcion!=7:
                             año=input("Introduce el año de la nueva fecha(YYYY): ")
                         matricula["año"]="%s"%año
                         actualizar_notayfecha_de_asignatura(db,matricula)
+        else:
+            print("La asignatura seleccionada no existe.")
+            
     opcion=MostrarMenu()
 
 print("Has salido del programa.")
