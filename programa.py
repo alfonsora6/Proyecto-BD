@@ -90,10 +90,13 @@ while opcion!=7:
                     id_alum=id_alumno(db,alumno)
                     if id_alum != False:
                         matricula["alumno"]=int(id_alum[0])
-                        nota=float(input("Introduce la nueva nota del alumno: "))
+                        nota=validar_nota()
+                        while nota==False:
+                            nota=validar_nota()
                         while nota<0 or nota>10:
                             print("La nota debe de estar comprendida entre 0 y 10.")
-                            nota=float(input("Introduce la nueva nota del alumno: "))
+                            while nota==False:
+                                nota=validar_nota()
                         matricula["nota"]=nota
                         año=input("Introduce el año de la nueva fecha(YYYY): ")
                         matricula["año"]="%s"%año

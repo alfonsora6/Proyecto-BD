@@ -194,7 +194,17 @@ def eliminar_asignatura(db,alumno,asignatura):
             print("Error al eliminar la asignatura.")
             db.rollback()
 
-#Ejercicio 6:        
+#Ejercicio 6: 
+
+def validar_nota():
+    try:
+        nota=float(input("Introduce la nueva nota del alumno: "))
+        return nota
+    except:
+        print("Error, la nota debe de ser decimal.")
+        return False
+
+
 def actualizar_notayfecha_de_asignatura(db,matricula):
     cursor=db.cursor()
     sql="UPDATE matriculas SET fecha=%s WHERE alumno=%i and asignatura=%i"%(matricula.get("año"),matricula.get("alumno"),matricula.get("asignatura"))
